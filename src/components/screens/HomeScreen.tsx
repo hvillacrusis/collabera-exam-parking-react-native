@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useRecoilState} from 'recoil';
+import {parkingSlotsState} from '../../store/app';
 import {HomeScreenNavigationProps} from '../../types';
 import Layout from './Layout';
 
@@ -15,6 +17,7 @@ interface TextInputs {
 }
 
 const HomeScreen: React.FC<HomeScreenNavigationProps> = ({navigation}) => {
+  const [_, setParkingLotState] = useRecoilState(parkingSlotsState);
   const [textInputs, setTextInputs] = useState<TextInputs>({
     numOfEntries: '',
     numberOfParkingSlots: '',
@@ -28,7 +31,11 @@ const HomeScreen: React.FC<HomeScreenNavigationProps> = ({navigation}) => {
       Number(textInputs.numOfEntries) <= 3;
     const isTextInput2Valid = /^\d+$/.test(textInputs.numberOfParkingSlots);
     if (isTextInput1Valid && isTextInput2Valid) {
-      setErrorMessage(null);
+      setParkingLotState(x => ({
+        ...x,
+        numberOfSlots: parseInt(textInputs.numberOfParkingSlots, 10),
+        numberOfEntryPoints: parseInt(textInputs.numOfEntries, 10),
+      }));
       navigation.navigate('CreateParking');
     } else {
       setErrorMessage(

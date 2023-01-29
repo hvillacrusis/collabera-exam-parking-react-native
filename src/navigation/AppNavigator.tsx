@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from '../components/screens/HomeScreen';
 import CreateParkingScreen from '../components/screens/CreateParkingScreen';
 import {StackNavigatorParamList} from '../types';
+import ParkingLotScreen from '../components/screens/ParkingLotScreen';
 
 const Stack = createNativeStackNavigator<StackNavigatorParamList>();
 
@@ -23,6 +24,13 @@ export default function AppNavigator() {
           component={CreateParkingScreen}
           options={{
             title: 'Create Parking Slots',
+          }}
+        />
+        <Stack.Screen
+          name="ParkingLot"
+          component={ParkingLotScreen}
+          options={{
+            title: 'Parking Slot',
           }}
         />
       </Stack.Navigator>
